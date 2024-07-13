@@ -17,7 +17,7 @@ logging.basicConfig(filename=LOG_FILE, level=logging.INFO) # Configure logging t
 def handle_requests(request):
     """Endpoint to send email provided the parameters are valid."""
     recipient_email = request.GET.get('sendmail', "")
-    talktome = request.GET.get('talktome', "").lower()
+    talktome = "talktome" in request.GET
     response_messages = []
 
     if recipient_email:
@@ -27,7 +27,7 @@ def handle_requests(request):
         else:
             response_messages.append(f"Invalid email address: {recipient_email}")
 
-    if talktome == "true":
+    if talktome:
         log_message()
         response_messages.append("Current time logged")
 
@@ -47,7 +47,7 @@ def validate_email_address(email):
 
 def log_message():
     current_time = timezone.now()
-    logging.info(f"[hng-stage-three] Current time: {current_time}")
+    logging.info(f"[hng-stage-three] Current time: {current_time} logged")
 
 
 def retrieve_logs(request):
