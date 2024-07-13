@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-=@t3i_t!akvm(&e$xwh*g1n5zm$!#=6#4y(_#d27#8v^u+n-t+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', "364a-102-89-46-199.ngrok-free.app"]
 
 
 # Application definition
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
+    # third party
+    "django_celery_results"
 ]
 
 MIDDLEWARE = [
@@ -132,3 +134,11 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default="")
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", cast=str, default="")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", cast=str, default="")
 EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool, default="")
+
+# Celery configuration
+CELERY_BROKER_URL = 'amqp://localhost'  # Adjust this URL if your RabbitMQ server is running on a different host
+CELERY_RESULT_BACKEND = 'django-db'  # Using django-celery-results for result backend
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
