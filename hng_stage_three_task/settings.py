@@ -127,18 +127,18 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = config("EMAIL_BACKEND", cast=str, default="")
-EMAIL_HOST = config("EMAIL_HOST", cast=str, default="")
-EMAIL_PORT = config("EMAIL_PORT", cast=str, default="")
-EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default="")
-EMAIL_HOST_USER = config("EMAIL_HOST_USER", cast=str, default="")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", cast=str, default="")
-EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool, default="")
+EMAIL_BACKEND = config("EMAIL_BACKEND", cast=str, default="") # Backend used to send emails (requires configuration)
+EMAIL_HOST = config("EMAIL_HOST", cast=str, default="") # Email server hostname (requires configuration)
+EMAIL_PORT = config("EMAIL_PORT", cast=str, default="") # Port used by the email server (requires configuration)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default="") # Use Transport Layer Security (TLS) for secure email (optional)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", cast=str, default="") # Username for email authentication (optional)
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", cast=str, default="")  # Password for email authentication (optional)
+EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool, default="") # Use Secure Sockets Layer (SSL) for secure email (optional)
 
 # Celery configuration
-CELERY_BROKER_URL = 'amqp://localhost'  # Adjust this URL if your RabbitMQ server is running on a different host
-CELERY_RESULT_BACKEND = 'django-db'  # Using django-celery-results for result backend
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
+CELERY_BROKER_URL = 'amqp://localhost' # URL of the message broker for tasks
+CELERY_RESULT_BACKEND = 'django-db'  # Backend for storing task results (uses Django database)
+CELERY_ACCEPT_CONTENT = ['json'] # Accepted content types for tasks (only JSON in this case)
+CELERY_TASK_SERIALIZER = 'json' # Serializer used to serialize tasks (JSON)
+CELERY_RESULT_SERIALIZER = 'json' # Serializer used to serialize task results (JSON)
+CELERY_TIMEZONE = 'UTC' # Timezone used by Celery for tasks
