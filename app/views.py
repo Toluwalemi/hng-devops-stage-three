@@ -22,7 +22,7 @@ def handle_requests(request):
 
     if recipient_email:
         if validate_email_address(recipient_email):
-            send_email.delay(recipient_email)
+            send_email.apply_async((recipient_email,), countdown=10)
             response_messages.append(f"Email sent to {recipient_email}")
         else:
             response_messages.append(f"Invalid email address: {recipient_email}")
