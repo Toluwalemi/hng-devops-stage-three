@@ -1,7 +1,9 @@
 import logging
 import os
-from django.http import JsonResponse, HttpResponse
+
+from decouple import config
 from django.core.mail import send_mail
+from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
 
 # Configure logging
@@ -13,7 +15,6 @@ logging.basicConfig(filename=LOG_FILE, level=logging.INFO)
 def handle_requests(request):
     sendmail = request.GET.get('sendmail', "")
     talktome = request.GET.get('talktome', "")
-
     response_messages = []
 
     if sendmail:
@@ -32,9 +33,9 @@ def handle_requests(request):
 
 def send_email(recipient):
     send_mail(
-        'Subject here',
-        'Here is the message.',
-        'from@example.com',
+        'Toluwalemi: HNG DevOps Stage Three',
+        'Here is a confirmation that this works :)',
+        config("EMAIL_HOST_USER", cast=str, default=""),
         [recipient],
         fail_silently=False,
     )
